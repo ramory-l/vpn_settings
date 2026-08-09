@@ -1,0 +1,27 @@
+{
+  "Name": "RU-Direct",
+  "LastUpdated": 0,
+  "GlobalProxy": "true",
+  "DomainStrategy": "IPIfNonMatch",
+  "RouteOrder": "block-proxy-direct",
+  "useChunkFiles": "false",
+  "Geositeurl": "{base_url}/geosite.dat",
+  "Geoipurl": "{base_url}/geoip.dat",
+  "ProxySites": ["geosite:override-proxy"],
+  "DirectSites": [
+    "geosite:ru-direct",
+    "geosite:bulk-cdn",
+    "raw.githubusercontent.com",
+    "objects.githubusercontent.com",
+    "github.com"
+  ],
+  "DirectIp": [
+    "geoip:ru",
+    "10.0.0.0/8",
+    "172.16.0.0/12",
+    "192.168.0.0/16",
+    "127.0.0.0/8",
+    "169.254.0.0/16",
+    "100.64.0.0/10"
+  ]
+}
