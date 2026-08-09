@@ -15,6 +15,9 @@
 # through the proxy these downloads come from Finland instead.
 steamcontent.com
 steamstatic.com
+# Akamai-fronted. Added because cdn.akamai.steamstatic.com — same CDN, same
+# path — pulled 50 MB at 102 Mbit/s direct. Still owed a direct measurement.
+steamcdn-a.akamaihd.net
 
 # Google binaries — Play packages, Chrome, toolchains.
 dl.google.com
