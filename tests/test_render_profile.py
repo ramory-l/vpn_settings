@@ -67,4 +67,8 @@ def test_the_shipped_template_renders_cleanly():
     assert "geosite:override-proxy" in out["ProxySites"]
     assert {"geosite:ru-direct", "geosite:bulk-cdn"} <= set(out["DirectSites"])
     assert "geoip:ru" in out["DirectIp"]
+    # The tunnel carries IPv6, so local ranges must be listed for both families
+    # or LAN traffic over IPv6 falls through GlobalProxy and exits in Finland.
+    assert {"10.0.0.0/8", "192.168.0.0/16"} <= set(out["DirectIp"])
+    assert {"::1/128", "fe80::/10", "fc00::/7"} <= set(out["DirectIp"])
     assert "{base_url}" not in json.dumps(out)
