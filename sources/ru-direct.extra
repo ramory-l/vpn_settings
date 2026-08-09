@@ -1,0 +1,9 @@
+# Merged into RU-DIRECT with the upstream categories.
+#
+# The RU entry node already routes these two TLDs direct (routing rule on
+# domain:ru / domain:su), so deciding it on the client changes reachability for
+# nothing — it only moves the bytes off the node's billed egress. A TLD suffix
+# cannot drag in a foreign CDN, so the stall risk that rules out category-ru
+# does not apply here.
+domain:ru
+domain:su
