@@ -1,3 +1,33 @@
-# Binary-distribution CDN hostnames only. Never service or account hostnames.
-# Every entry must have a verified full-speed download from a Russian address.
-# See docs/superpowers/specs/2026-08-09-bulk-cdn-hosts.md
+# Binary-distribution CDN hostnames only. Never service or account hostnames:
+# a service domain resolved direct while its app runs through the proxy puts the
+# same account in two countries at once. CDN hostnames carry no account identity.
+#
+# Listed below: vendor-operated CDNs that serve Russia normally. Not yet verified
+# by a real transfer, so a failure here shows up as a download that stalls after
+# roughly 16 KB rather than as an error. The fix is to move the hostname into
+# sources/override-proxy, rebuild, and it returns to the cascade.
+#
+# See docs/superpowers/specs/2026-08-09-bulk-cdn-hosts.md for the candidates
+# deliberately held back — the Akamai-fronted ones, whose address space is itself
+# partly restricted in Russia.
+
+# Steam. Also wins back the ISP-local Steam caches, which the tunnel hides:
+# through the proxy these downloads come from Finland instead.
+steamcontent.com
+steamstatic.com
+
+# Google binaries — Play packages, Chrome, toolchains.
+dl.google.com
+gvt1.com
+gvt2.com
+
+# Windows Update and Delivery Optimization.
+download.windowsupdate.com
+dl.delivery.mp.microsoft.com
+tlu.dl.delivery.mp.microsoft.com
+
+# Apple system and app updates.
+swcdn.apple.com
+swdist.apple.com
+updates-http.cdn-apple.com
+appldnld.apple.com
