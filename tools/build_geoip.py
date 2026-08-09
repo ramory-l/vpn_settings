@@ -8,6 +8,7 @@ import pathlib
 import sys
 import urllib.request
 
+from artefact import check_size
 from protobuf import encode_geoip_list, iter_fields
 
 UPSTREAM = ("https://github.com/v2fly/geoip/releases/latest/download/geoip.dat")
@@ -50,8 +51,7 @@ def main():
     with urllib.request.urlopen(UPSTREAM, timeout=300) as response:
         upstream = response.read()
     blob = build(upstream)
-    if len(blob) > 1_000_000:
-        raise ValueError("geoip.dat is %d bytes, over the 1 MB budget" % len(blob))
+    check_size(blob, "geoip.dat", floor=100_000)
     DIST.mkdir(exist_ok=True)
     (DIST / "geoip.dat").write_bytes(blob)
     print("geoip.dat: %d bytes from %d bytes upstream" % (len(blob), len(upstream)))

@@ -8,6 +8,7 @@ import pathlib
 import sys
 import urllib.request
 
+from artefact import check_size
 from protobuf import encode_geosite_list, PLAIN, REGEX, ROOT, FULL
 
 V2FLY_DATA = "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/"
@@ -110,8 +111,7 @@ def main():
              for n in ("ru-direct.categories", "ru-direct.extra",
                        "bulk-cdn", "override-proxy")}
     blob = build(_fetch, local)
-    if len(blob) > 1_000_000:
-        raise ValueError("geosite.dat is %d bytes, over the 1 MB budget" % len(blob))
+    check_size(blob, "geosite.dat", floor=10_000)
     DIST.mkdir(exist_ok=True)
     (DIST / "geosite.dat").write_bytes(blob)
     print("geosite.dat: %d bytes" % len(blob))
