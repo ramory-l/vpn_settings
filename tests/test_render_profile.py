@@ -58,6 +58,11 @@ def test_the_shipped_template_renders_cleanly():
     out = render(json.loads(path.read_text()), now=7,
                  base_url="https://raw.githubusercontent.com/ramory-l/vpn_settings/main/dist")
     assert out["RouteOrder"] == "block-proxy-direct"
+    # Key casing is exact: the client silently ignores a miscased key and
+    # substitutes its own default, which is invisible when they agree.
+    assert "UseChunkFiles" in out and "useChunkFiles" not in out
+    assert out["DomesticDNSType"] == "DoU" and out["RemoteDNSType"] == "DoH"
+    assert out["DomesticDNSIP"] == "77.88.8.8"
     assert out["Geositeurl"].endswith("/dist/geosite.dat")
     assert "geosite:override-proxy" in out["ProxySites"]
     assert {"geosite:ru-direct", "geosite:bulk-cdn"} <= set(out["DirectSites"])
