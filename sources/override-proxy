@@ -1,4 +1,3 @@
 # Domains forced through the cascade even when a broad direct list matches them.
 # This is the repair mechanism: add a domain here, rebuild, and every client
 # picks it up on the next subscription refresh.
-probe-throwaway.invalid
