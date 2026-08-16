@@ -21,6 +21,14 @@ Artefacts are served from
 No profile change and no user action are needed for list edits. Note that the refresh is not
 immediate — a correction propagates on the client's schedule, not on yours.
 
+**A list edit reaches two places.** Besides the INCY clients, a Keenetic router consumes the
+same `dist/geosite.dat` and `dist/geoip.dat` directly as Xray asset files, pulling them
+daily. Its rules mirror the profile — `override-proxy` before the direct lists, everything
+unmatched proxied — so a change here applies to every device behind that router as well.
+The router validates a fetched file with `xray -test` before installing it, so a renamed or
+dropped category fails closed there rather than taking the router offline; the clients would
+simply fall through to `GlobalProxy`.
+
 `sources/override-proxy` is the repair mechanism: a domain listed there is forced through the
 cascade even though a broader direct list matches it. This works because `RouteOrder` is
 `block-proxy-direct`, so proxy rules are evaluated before direct ones.
